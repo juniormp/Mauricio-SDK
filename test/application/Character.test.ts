@@ -1,44 +1,45 @@
 import {LordRingsAdapter} from "../../src/infrastructure/external-data/LordRingsAdapter";
 import {instance, mock, when} from "ts-mockito";
-import {Book} from "../../src/application/Book";
+import {Character} from "../../src/application/Character";
 const { expect } = require('chai');
 
-describe('retrieve books', () => {
-    it('should return a list of books', async () => {
+describe('retrieve characters', () => {
+    it('should return a list of characters', async () => {
         const lordRingsAdapter: LordRingsAdapter = mock(LordRingsAdapter);
-        const book = new Book(instance(lordRingsAdapter))
-        const books = [{id: '123abc', name: 'book'}, {id: '123abc', name:'book2'}];
+        const character = new Character(instance(lordRingsAdapter))
+        const characters = [{id: '123abc', character: 'character'}, {id: '123abc', character:'character1'}];
 
-        when(lordRingsAdapter.getBooks(undefined)).thenResolve(books);
+        when(lordRingsAdapter.getCharacters(undefined)).thenResolve(characters);
 
-        const result = await book.getBooks();
+        const result = await character.getCharacters();
 
-        expect(result).to.equal(books);
+        expect(result).to.equal(characters);
     });
 
-    it('should return one book', async () => {
+    it('should return one character', async () => {
         const lordRingsAdapter: LordRingsAdapter = mock(LordRingsAdapter);
-        const book = new Book(instance(lordRingsAdapter))
-        const books = {id: '123abc', name: 'book'};
+        const character = new Character(instance(lordRingsAdapter))
+        const characters = {id: '123abc', character: 'character'};
 
-        when(lordRingsAdapter.getBook('123abc')).thenResolve(books);
+        when(lordRingsAdapter.getCharacter( '123abc',undefined)).thenResolve(characters);
 
-        const result = await book.getBook('123abc');
+        const result = await character.getCharacter('123abc');
 
-        expect(result).to.equal(books);
+        expect(result).to.equal(characters);
+    });
+});
+
+describe('retrieve character quote', () => {
+    it('should return list of character quote', async () => {
+        const lordRingsAdapter: LordRingsAdapter = mock(LordRingsAdapter);
+        const character = new Character(instance(lordRingsAdapter))
+        const characters = [{id: '123abc', quote: 'quote'}];
+
+        when(lordRingsAdapter.getCharacterQuote( '123abc',undefined)).thenResolve(characters);
+
+        const result = await character.getCharacterQuote('123abc');
+
+        expect(result).to.equal(characters);
     });
 });
 
-describe('retrieve book chapters', () => {
-    it('should return a list of book chapters', async () => {
-        const lordRingsAdapter: LordRingsAdapter = mock(LordRingsAdapter);
-        const book = new Book(instance(lordRingsAdapter))
-        const books = {id: '123abc', chapter: 'chapter'};
-
-        when(lordRingsAdapter.getBookChapter('123abc')).thenResolve(books);
-
-        const result = await book.getBookChapter('123abc');
-
-        expect(result).to.equal(books);
-    });
-});

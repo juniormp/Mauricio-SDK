@@ -1,45 +1,30 @@
 import {LordRingsAdapter} from "../../src/infrastructure/external-data/LordRingsAdapter";
 import {instance, mock, when} from "ts-mockito";
-import {Book} from "../../src/application/Book";
-import {Movie} from "../../src/application/Movie";
+import {Quote} from "../../src/application/Quote";
 const { expect } = require('chai');
 
-describe('retrieve movies', () => {
-    it('should return a list of movie', async () => {
+describe('retrieve quotes', () => {
+    it('should return a list of quotes', async () => {
         const lordRingsAdapter: LordRingsAdapter = mock(LordRingsAdapter);
-        const movie = new Movie(instance(lordRingsAdapter))
-        const movies = [{id: '123abc', name: 'movie'}, {id: '123abc', name:'movie2'}];
+        const quote = new Quote(instance(lordRingsAdapter))
+        const quotes = [{id: '123abc', name: 'quote'}, {id: '123abc', name:'quote2'}];
 
-        when(lordRingsAdapter.getMovies(undefined)).thenResolve(movies);
+        when(lordRingsAdapter.getQuotes(undefined)).thenResolve(quotes);
 
-        const result = await movie.getMovies();
+        const result = await quote.getQuotes();
 
-        expect(result).to.equal(movies);
+        expect(result).to.equal(quotes);
     });
 
-    it('should return one movie', async () => {
+    it('should return a quote', async () => {
         const lordRingsAdapter: LordRingsAdapter = mock(LordRingsAdapter);
-        const movie = new Movie(instance(lordRingsAdapter))
-        const movies = {id: '123abc', name: 'movie'};
+        const quote = new Quote(instance(lordRingsAdapter))
+        const quotes = {id: '123abc', name: 'quote'};
 
-        when(lordRingsAdapter.getMovie('123abc', undefined)).thenResolve(movies);
+        when(lordRingsAdapter.getQuote('123abc', undefined)).thenResolve(quotes);
 
-        const result = await movie.getMovie('123abc');
+        const result = await quote.getQuote('123abc', undefined);
 
-        expect(result).to.equal(movies);
-    });
-});
-
-describe('retrieve movie quote', () => {
-    it('should return a list of movie quote', async () => {
-        const lordRingsAdapter: LordRingsAdapter = mock(LordRingsAdapter);
-        const movie = new Movie(instance(lordRingsAdapter))
-        const quote = {id: '123abc', name: 'quote'};
-
-        when(lordRingsAdapter.getMovieQuote('123abc', undefined)).thenResolve(quote);
-
-        const result = await movie.getMovieQuote('123abc');
-
-        expect(result).to.equal(quote);
+        expect(result).to.equal(quotes);
     });
 });

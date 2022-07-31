@@ -1,44 +1,30 @@
 import {LordRingsAdapter} from "../../src/infrastructure/external-data/LordRingsAdapter";
 import {instance, mock, when} from "ts-mockito";
-import {Book} from "../../src/application/Book";
+import {Chapter} from "../../src/application/Chapter";
 const { expect } = require('chai');
 
-describe('retrieve books', () => {
-    it('should return a list of books', async () => {
+describe('retrieve chapters', () => {
+    it('should return a list of chapters', async () => {
         const lordRingsAdapter: LordRingsAdapter = mock(LordRingsAdapter);
-        const book = new Book(instance(lordRingsAdapter))
-        const books = [{id: '123abc', name: 'book'}, {id: '123abc', name:'book2'}];
+        const chapter = new Chapter(instance(lordRingsAdapter))
+        const chapters = [{id: '123abc', chapter: 'chapter'}, {id: '123abc', name:'chapter2'}];
 
-        when(lordRingsAdapter.getBooks(undefined)).thenResolve(books);
+        when(lordRingsAdapter.getChapters(undefined)).thenResolve(chapters);
 
-        const result = await book.getBooks();
+        const result = await chapter.getChapters();
 
-        expect(result).to.equal(books);
+        expect(result).to.equal(chapters);
     });
 
-    it('should return one book', async () => {
+    it('should return one chapters', async () => {
         const lordRingsAdapter: LordRingsAdapter = mock(LordRingsAdapter);
-        const book = new Book(instance(lordRingsAdapter))
-        const books = {id: '123abc', name: 'book'};
+        const chapter = new Chapter(instance(lordRingsAdapter))
+        const chapters = {id: '123abc', chapter: 'chapter'};
 
-        when(lordRingsAdapter.getBook('123abc')).thenResolve(books);
+        when(lordRingsAdapter.getChapter('123abc')).thenResolve(chapters);
 
-        const result = await book.getBook('123abc');
+        const result = await chapter.getChapter('123abc');
 
-        expect(result).to.equal(books);
-    });
-});
-
-describe('retrieve book chapters', () => {
-    it('should return a list of book chapters', async () => {
-        const lordRingsAdapter: LordRingsAdapter = mock(LordRingsAdapter);
-        const book = new Book(instance(lordRingsAdapter))
-        const books = {id: '123abc', chapter: 'chapter'};
-
-        when(lordRingsAdapter.getBookChapter('123abc')).thenResolve(books);
-
-        const result = await book.getBookChapter('123abc');
-
-        expect(result).to.equal(books);
+        expect(result).to.equal(chapters);
     });
 });
