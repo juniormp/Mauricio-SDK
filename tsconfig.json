@@ -1,4 +1,5 @@
 {
+
   "ts-node": {
     // these options are overrides used only by ts-node
     // same as the --compilerOptions flag and the TS_NODE_COMPILER_OPTIONS environment variable
@@ -7,10 +8,10 @@
     }
   },
   "compilerOptions": {
-    "module": "esnext",
     "esModuleInterop": true,
     "noImplicitAny": true,
-    "target": "es6",
+    "target": "esnext",
+    "module": "commonjs",
     "moduleResolution": "node",
     "sourceMap": true,
     "outDir": "dist",
